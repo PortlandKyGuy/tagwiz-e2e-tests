@@ -1,0 +1,51 @@
+name: test-driven-development
+description: TDD workflow for writing tests before implementation
+difficulty: moderate
+agents:
+  - playwright-test-developer
+  - test-quality-analyst
+  - test-quality-critic
+  - code-executor
+
+steps:
+  - name: write-tests
+    agent: playwright-test-developer
+    action: Write tests based on expected behavior without implementation
+    output: reports/tdd-test-spec.md
+    
+  - name: run-failing-tests
+    agent: code-executor
+    action: Run tests to confirm they fail as expected
+    depends_on: write-tests
+    output: reports/tdd-initial-failure.md
+    
+  - name: review-test-design
+    agent: test-quality-analyst
+    action: Review test design for completeness and clarity
+    depends_on: run-failing-tests
+    output: reports/tdd-test-review.md
+    
+  - name: implement-solution
+    agent: playwright-test-developer
+    action: Write minimal code to make tests pass
+    depends_on: review-test-design
+    output: reports/tdd-implementation.md
+    
+  - name: verify-tests-pass
+    agent: code-executor
+    action: Run tests to confirm implementation works
+    depends_on: implement-solution
+    output: reports/tdd-test-results.md
+    
+  - name: quality-review
+    agent: test-quality-critic
+    action: Ensure implementation is not overfitting to tests
+    depends_on: verify-tests-pass
+    output: reports/tdd-quality-review.md
+
+tdd_principles:
+  - Write minimal test first
+  - See test fail for the right reason
+  - Write minimal code to pass
+  - Refactor with confidence
+  - Never modify tests to make them pass

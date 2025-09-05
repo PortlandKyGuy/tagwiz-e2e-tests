@@ -1,0 +1,59 @@
+name: test-suite-health-check
+description: Comprehensive health assessment of the entire test suite
+difficulty: high
+agents:
+  - test-quality-analyst
+  - performance-optimizer
+  - accessibility-auditor
+  - cicd-integration-specialist
+  - security-test-critic
+  - test-suite-synthesizer
+
+steps:
+  - name: parallel-analysis
+    parallel: true
+    agents:
+      - name: coverage-analysis
+        agent: test-quality-analyst
+        color: Blue
+        action: Analyze test coverage gaps and redundancies
+        output: reports/coverage-analysis.md
+        
+      - name: performance-audit
+        agent: performance-optimizer
+        color: Red
+        action: Identify slow tests and optimization opportunities
+        output: reports/performance-audit.md
+        
+      - name: accessibility-review
+        agent: accessibility-auditor
+        color: Yellow
+        action: Check accessibility test coverage
+        output: reports/accessibility-coverage.md
+        
+      - name: ci-pipeline-review
+        agent: cicd-integration-specialist
+        color: Green
+        action: Review CI/CD integration and reliability
+        output: reports/ci-pipeline-health.md
+    
+  - name: security-review
+    agent: security-test-critic
+    action: Audit for security vulnerabilities in test code
+    depends_on: parallel-analysis
+    output: reports/security-audit.md
+    
+  - name: synthesize-health-report
+    agent: test-suite-synthesizer
+    action: Create comprehensive health report with prioritized recommendations
+    depends_on:
+      - parallel-analysis
+      - security-review
+    output: reports/test-suite-health-report.md
+
+health_metrics:
+  - Test execution time trends
+  - Flakiness ratio
+  - Coverage percentage
+  - Maintenance burden score
+  - CI/CD success rate

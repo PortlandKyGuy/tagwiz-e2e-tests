@@ -1,0 +1,50 @@
+name: test-development
+description: Workflow for developing new E2E tests from requirements
+difficulty: moderate
+agents:
+  - playwright-test-developer
+  - test-quality-analyst
+  - performance-optimizer
+  - test-quality-critic
+  - test-suite-synthesizer
+
+steps:
+  - name: analyze-requirements
+    agent: test-quality-analyst
+    action: Review test requirements and create coverage plan
+    output: reports/test-coverage-plan.md
+    
+  - name: develop-test
+    agent: playwright-test-developer
+    action: Implement test based on coverage plan
+    depends_on: analyze-requirements
+    output: reports/new-test-implementation.md
+    
+  - name: optimize-performance
+    agent: performance-optimizer
+    action: Review test for performance optimizations
+    depends_on: develop-test
+    output: reports/test-performance-review.md
+    
+  - name: quality-review
+    agent: test-quality-critic
+    action: Comprehensive review of test implementation
+    depends_on: 
+      - develop-test
+      - optimize-performance
+    output: reports/test-quality-audit.md
+    
+  - name: synthesize-results
+    agent: test-suite-synthesizer
+    action: Consolidate all feedback and produce final recommendation
+    depends_on:
+      - quality-review
+    output: reports/test-development-synthesis.md
+
+parallel_perspectives:
+  enabled: true
+  trigger: "When test complexity is high"
+  agents:
+    - playwright-test-developer (Blue)
+    - test-data-architect (Green)
+    - accessibility-auditor (Yellow)

@@ -1,0 +1,51 @@
+name: test-failure-investigation
+description: Workflow for investigating and resolving test failures
+difficulty: high
+agents:
+  - test-maintenance-expert
+  - environment-analyst
+  - test-data-architect
+  - test-style-critic
+  - test-suite-synthesizer
+
+steps:
+  - name: parallel-investigation
+    parallel: true
+    agents:
+      - name: root-cause-analysis
+        agent: test-maintenance-expert
+        color: Blue
+        action: Analyze test failure logs and identify root cause
+        output: reports/failure-root-cause.md
+        
+      - name: environment-check
+        agent: environment-analyst
+        color: Red
+        action: Check for environment or infrastructure issues
+        output: reports/environment-analysis.md
+        
+      - name: data-validation
+        agent: test-data-architect
+        color: Green
+        action: Validate test data and dependencies
+        output: reports/test-data-validation.md
+    
+  - name: style-review
+    agent: test-style-critic
+    action: Review proposed fixes for Playwright best practices
+    depends_on: parallel-investigation
+    output: reports/fix-style-review.md
+    
+  - name: synthesize-findings
+    agent: test-suite-synthesizer
+    action: Consolidate all investigations and propose resolution
+    depends_on:
+      - parallel-investigation
+      - style-review
+    output: reports/failure-resolution-plan.md
+
+resolution_criteria:
+  - All root causes identified with unique IDs
+  - Fix validated against similar test patterns
+  - No regression risk to other tests
+  - Performance impact assessed
