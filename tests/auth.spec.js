@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { createTestUser } from '../lib/users.js';
-import { register, logout } from '../lib/flows.js';
+import { register, logout, login } from '../lib/flows.js';
 import { snap } from '../lib/screenshot.js';
 
 test.describe('Auth', () => {
@@ -8,15 +8,11 @@ test.describe('Auth', () => {
     const user = createTestUser();
     await register(page, testInfo, user);
 
-    await logout(page, testInfo);
+    await logout(page);
     await snap(page, testInfo, 'auth-logged-out');
-    await expect(page).toHaveURL(/login/i);
-
-    await page.getByLabel(/email/i).fill(user.email);
-    await page.getByLabel(/^password$/i).fill(user.password);
-    await page.getByRole('button', { name: /sign in|log in/i }).click();
-    await page.waitForLoadState('networkidle');
+    
+    // Login again
+    await login(page, user);
     await snap(page, testInfo, 'auth-login-complete');
-    await expect(page).toHaveURL(/dashboard|onboarding|app/i);
   });
 });

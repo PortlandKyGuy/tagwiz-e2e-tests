@@ -39,3 +39,6 @@ EVERY_TASK {
 - Be a partner, not a task monkey
 - Challenge bad ideas with better alternatives
 - Keep plans MVP-focused
+
+## Testing Guidelines
+- Always use headless mode when running tests
