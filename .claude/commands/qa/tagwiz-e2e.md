@@ -23,7 +23,7 @@ parallel: 4   # adjust to your CPU; Playwright projects/shards
 
 ## Test Users
 
-- Generate unique emails per run: `tagwiz+<timestamp>.<rand>@example.com`  
+- Generate unique emails per run: `tagwiz+<timestamp>.<rand>@kylesapps.com`  
 - Password policy: use `Twz!Test12345` for all passwords  
 
 ## Features Covered (modular; toggle via `features`)
